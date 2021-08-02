@@ -1,3 +1,5 @@
+'use strict'
+
 //Задание 1
 let money = 300000;
 let income = '50000';
@@ -23,3 +25,33 @@ console.log('Цель заработать ', mission, ' рублей');
 //дневной бюджет
 let budgetDay = money / 30;
 console.log('Дневной бюджет = ', budgetDay);
+
+//ДЗ 2
+
+money =+prompt('Ваш месячный доход?');
+addExpenses=prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
+deposit=!!(prompt('Есть ли у вас депозит в банке?'));
+
+let expenses1=prompt('Введите обязательную статью расходов?');
+let amount1=+prompt('Во сколько это обойдется?');
+
+let expenses2=prompt('Введите обязательную статью расходов?');
+let amount2=+prompt('Во сколько это обойдется?');
+
+let budgetMonth=money-amount1-amount2;
+console.log('Бюджет на месяц: ',budgetMonth);
+
+console.log('Цель будет достигнута за : ', Math.ceil(mission/budgetMonth), ' месяцев');
+
+budgetDay=Math.floor(budgetMonth/30);
+console.log('Бюджет на день: ',budgetDay);
+
+if(budgetDay<=600&&budgetDay>=0){
+alert('К сожалению у вас уровень дохода ниже среднего');
+}else if(budgetDay>600&&budgetDay<=1200){
+    alert('У вас средний уровень дохода');
+}else if(budgetDay>1200){
+    alert('У вас высокий уровень дохода');
+}else{
+    alert('Что то пошло не так');
+}
