@@ -17,7 +17,7 @@ console.log('deposit = ', typeof deposit);
 
 console.log('Длина строки = ', addExpenses.length);
 
-console.log('Массив ', addExpenses.toLowerCase().split(', '));
+//console.log('Массив ', addExpenses.toLowerCase().split(', '));
 
 console.log('Период равен ', period, ' месяцев');
 console.log('Цель заработать ', mission, ' рублей');
@@ -30,7 +30,7 @@ console.log('Дневной бюджет = ', budgetDay);
 
 money = +prompt('Ваш месячный доход?');
 addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
-console.log(addExpenses);
+console.log(addExpenses.toLowerCase().split(' '));
 deposit = confirm('Есть ли у вас депозит в банке?');
 
 let expenses1 = prompt('Введите обязательную статью расходов?');
