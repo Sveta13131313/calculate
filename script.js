@@ -1,5 +1,7 @@
 'use strict'
-
+const isNumber=function(n){
+    return !isNaN(parseFloat(n))&&isFinite(n);
+}
 //Задание 1
 let money = 300000;
 let income = '50000';
@@ -10,6 +12,15 @@ let period = 10;
 
 
 //Задание 2
+let start=function(){
+    money = prompt('Ваш месячный доход?');
+
+    while(!isNumber(money)){
+        money = prompt('Ваш месячный доход?');
+    }
+}
+
+start();
 
 let showTypeOf = function (data) {
     console.log(typeof (data));
@@ -22,40 +33,42 @@ showTypeOf(deposit);
 
 //ДЗ 2
 
-money = +prompt('Ваш месячный доход?');
 addExpenses = prompt('Перечислите возможные расходы за рассчитываемый период через запятую');
 
 deposit = confirm('Есть ли у вас депозит в банке?');
 
 
-
-let expenses1 = prompt('Введите обязательную статью расходов?');
-let amount1 = +prompt('Во сколько это обойдется?');
-
-let expenses2 = prompt('Введите обязательную статью расходов?');
-let amount2 = +prompt('Во сколько это обойдется?');
+let expenses1,expenses2;
 
 
-const getExpensesMonth = function (amount_1, amount_2) {
-    return amount_1 + amount_2;
+const getExpensesMonth = function (){
+    let sum=0;
+    for (let i=0;i<2;i++){
+        if(i==0){
+            expenses1= prompt('Введите обязательную статью расходов?');
+        }else if(i==1){
+            expenses2=prompt('Введите обязательную статью расходов?');
+        }
+        sum+=+prompt('Во сколько это обойдется?')
+    }
+    console.log(sum);
+    return sum;
 }
-console.log('Сумма всех расходов за месяц ', getExpensesMonth(amount1, amount2));
+
+let expensesaAmount=getExpensesMonth();
+console.log('Сумма всех расходов за месяц ', expensesaAmount);
 
 console.log('Массив ', addExpenses.toLowerCase().split(' '));
 
-const getAccumulatedMonth = function callback(money_f, getExpens) {
-    return money_f - getExpens;
+const getAccumulatedMonth = function callback() {
+    return money - expensesaAmount;
 }
 
-let accumulatedMonth = getAccumulatedMonth(money, getExpensesMonth(amount1, amount2));
+let accumulatedMonth = getAccumulatedMonth();
 
 let getTargetMonth = function callback(accumulatedMonth_f) {
     return Math.ceil(mission / accumulatedMonth_f);
 }
-
-
-
-
 
 
 if (accumulatedMonth > 0) {
