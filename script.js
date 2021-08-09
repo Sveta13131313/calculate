@@ -116,67 +116,26 @@ appData.getStatusIncome();
 appData.getInfoDeposit();
 
 let starts=document.getElementById('start');
-console.log(starts);
-
 let btnPlusIncomeAdd=document.getElementsByTagName('button')[0];
-console.log(btnPlusIncomeAdd);
-
 let btnPlusExpensesAdd=document.getElementsByTagName('button')[1];
-console.log(btnPlusExpensesAdd);
-
 let depositCheck=document.querySelector('#deposit-check');
-console.log(depositCheck);
-
 let additionalIncomeItem1=document.querySelectorAll('.additional_income-item')[0];
-console.log(additionalIncomeItem1);
-
 let additionalIncomeItem2=document.querySelectorAll('.additional_income-item')[1];
-console.log(additionalIncomeItem2);
-
 let resultTotalBudgetMonthValue=document.getElementsByClassName('result-total budget_month-value');
-console.log(resultTotalBudgetMonthValue);
-
 let resultTotalBudgetDayValue=document.getElementsByClassName('result-total budget_day-value');
-console.log(resultTotalBudgetDayValue);
-
 let resultTotalExpensesMonthValue=document.getElementsByClassName('result-total expenses_month-value');
-console.log(resultTotalExpensesMonthValue);
-
 let resultTotalAdditionalIncomeValue=document.getElementsByClassName('result-total additional_income-value');
-console.log(resultTotalAdditionalIncomeValue);
-
 let resultTotalAdditionalExpensesValue=document.getElementsByClassName('result-total additional_expenses-value');
-console.log(resultTotalAdditionalExpensesValue);
-
 let resultTotalIncomePeriodValue=document.getElementsByClassName('result-total income_period-value');
-console.log(resultTotalIncomePeriodValue);
-
 let resultTotalTargetMonthValue=document.getElementsByClassName('result-total target_month-value');
-console.log(resultTotalTargetMonthValue);
-
 let periodSelect=document.querySelector('.period-select');
-console.log(periodSelect);
-
 let salaryAmount=document.querySelector('.salary-amount');
-console.log(salaryAmount);
-
 let incomeTitle=document.querySelectorAll('.income-title')[1];
-console.log(incomeTitle);
-
 let incomeAmount=document.querySelector('.income-amount');
-console.log(incomeAmount);
-
 let expensesTitle=document.querySelectorAll('.expenses-title')[1];
-console.log(expensesTitle);
-
 let expensesAmount=document.querySelector('.expenses-amount');
-console.log(expensesAmount);
-
 let additionalExpensesItem=document.querySelector('.additional_expenses-item');
-console.log(additionalExpensesItem);
-
 let targetAmount=document.querySelector('.target-amount');
-console.log(targetAmount);
 
 console.log('Наша программа включает в себя данные:');
 for (let key in appData) {
