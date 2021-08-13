@@ -20,7 +20,8 @@ let start = document.getElementById('start'),
     additionalExpenses = document.querySelector('.additional_expenses-item'),
     targetAmount = document.querySelector('.target-amount'),
     incomeItems = document.querySelectorAll('.income-items'),
-    periodSelectText = document.getElementsByClassName('title period-amount')[0];
+    periodSelectText = document.getElementsByClassName('title period-amount')[0],
+ 
 
 const isNumber = function (n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
@@ -64,6 +65,7 @@ let appData = {
     },
     addExpensesBlock: function () {
         let cloneExpensesItem = expensesItems[0].cloneNode(true);
+        cloneExpensesItem.value='';
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, btnPlusExpensesAdd);
         expensesItems = document.querySelectorAll('.expenses-items');
         if (expensesItems.length === 3) {
@@ -82,6 +84,7 @@ let appData = {
     },
     addIncomeBlock: function () {
         let cloneIncomeItem = incomeItems[0].cloneNode(true);
+        cloneIncomeItem.value=' ';
         incomeItems[0].parentNode.insertBefore(cloneIncomeItem, btnPlusIncomeAdd);
         incomeItems = document.querySelectorAll('.income-items');
         if (incomeItems.length === 3) {
@@ -169,3 +172,4 @@ start.addEventListener('click', function (event) {
 btnPlusIncomeAdd.addEventListener('click', appData.addIncomeBlock);
 btnPlusExpensesAdd.addEventListener('click', appData.addExpensesBlock);
 periodSelect.addEventListener('change', appData.getPeriodSelect);
+
