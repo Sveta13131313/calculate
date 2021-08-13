@@ -20,7 +20,7 @@ let start = document.getElementById('start'),
     additionalExpenses = document.querySelector('.additional_expenses-item'),
     targetAmount = document.querySelector('.target-amount'),
     incomeItems = document.querySelectorAll('.income-items'),
-    periodSelectText = document.getElementsByClassName('title period-amount')[0],
+    periodSelectText = document.getElementsByClassName('title period-amount')[0];
  
 
 const isNumber = function (n) {
