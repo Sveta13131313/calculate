@@ -171,5 +171,5 @@ start.addEventListener('click', function (event) {
 
 btnPlusIncomeAdd.addEventListener('click', appData.addIncomeBlock);
 btnPlusExpensesAdd.addEventListener('click', appData.addExpensesBlock);
-periodSelect.addEventListener('change', appData.getPeriodSelect);
+periodSelect.addEventListener('mouseup', appData.getPeriodSelect);
 
