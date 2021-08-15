@@ -1,6 +1,7 @@
 'use strict'
 
 let start = document.getElementById('start'),
+    cancel = document.getElementById('cancel'),
     btnPlusIncomeAdd = document.getElementsByTagName('button')[0],
     btnPlusExpensesAdd = document.getElementsByTagName('button')[1],
     depositCheck = document.querySelector('#deposit-check'),
@@ -27,11 +28,6 @@ let start = document.getElementById('start'),
     placeHolderSum = document.querySelectorAll('input[placeholder=Сумма]'),
     placeHolderNum = document.querySelectorAll('input[placeholder=Наименование]');
 
-
-const isNumber = function (n) {
-    return !isNaN(parseFloat(n)) && isFinite(n);
-}
-
 let appData = {
     income: {},
     addIncome: [],
@@ -46,7 +42,26 @@ let appData = {
     expensesMonth: 0,
     incomeMonth: 0,
     placeHolderSum: {},
+    check:function(){
+        if(salaryAmount.value!=''){
+            start.removeAttribute('disable');
+        }
+    },
     start: function () {
+        if(salaryAmount.value==''){
+            start.setAttribute('disabled');
+            return
+        }
+        inputText = document.querySelectorAll('.data input[type=text]');
+       
+        inputText.forEach(function (item) {
+            item.setAttribute('disabled', 'disabled');
+        });
+        btnPlusIncomeAdd.setAttribute('disabled', 'disabled');
+        btnPlusExpensesAdd.setAttribute('disabled', 'disabled');
+        start.style.display='none';
+        cancel.style.display='block';
+
         this.budget = +salaryAmount.value;
         this.getExpenses();
         this.getExpensesMonth();
@@ -55,24 +70,18 @@ let appData = {
         this.getAddIncome();
         this.getBudget();
         this.showResult();
-        inputText = document.querySelectorAll('.data input[type=text]');
-        inputTextResult = document.querySelectorAll('.result input[type=text]');
-        inputText.forEach(function (item) {
-            item.setAttribute('disabled', 'disabled');
-        });
-        inputTextResult.forEach(function (item) {
-            item.setAttribute('disabled', 'disabled');
-        });
-        btnPlusIncomeAdd.setAttribute('disabled', 'disabled');
-        btnPlusExpensesAdd.setAttribute('disabled', 'disabled');
 
     },
     //Функция очищения и сброса всех полей в начальное положение
     reset: function () {
+        inputText = document.querySelectorAll('.data input[type=text]');
+        inputTextResult = document.querySelectorAll('.result input[type=text]');
+
         inputText.forEach(function (item) {
             item.value = '';
             item.removeAttribute('disabled');
             periodSelect.value = '';
+            periodSelectText.innerHTML = periodSelect.value;
         });
         inputTextResult.forEach(function (item) {
             item.value = '';
@@ -102,6 +111,9 @@ let appData = {
 
         btnPlusIncomeAdd.removeAttribute('disabled');
         btnPlusExpensesAdd.removeAttribute('disabled');
+        cancel.style.display='none';
+        start.style.display='block';
+        depositCheck.check=false;
 
     },
     showResult: function () {
@@ -214,24 +226,13 @@ let appData = {
 }
 
 
-let button = true;
-start.addEventListener('click', function (event) {
-    event.preventDefault();
-    if (salaryAmount.value != '' && button == true) {
-        appData.start();
-        start.textContent = 'Сбросить';
-        button = false;
-    } else {
-        appData.reset();
-        start.textContent = 'Рассчитать';
-        button = true;
 
-    }
-}
-);
-
+start.addEventListener('click', appData.start.bind(appData));
 btnPlusExpensesAdd.addEventListener('click', appData.addExpensesBlock.bind(appData));
 btnPlusIncomeAdd.addEventListener('click', appData.addIncomeBlock.bind(appData));
+salaryAmount.addEventListener('keyup',appData.check);
+cancel.addEventListener('click',appData.reset.bind(appData));
+
 periodSelect.addEventListener('mouseup', function () {
     periodSelectText.innerHTML = periodSelect.value;
 });
