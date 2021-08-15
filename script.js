@@ -233,7 +233,7 @@ btnPlusIncomeAdd.addEventListener('click', appData.addIncomeBlock.bind(appData))
 salaryAmount.addEventListener('keyup',appData.check);
 cancel.addEventListener('click',appData.reset.bind(appData));
 
-periodSelect.addEventListener('mouseup', function () {
+periodSelect.addEventListener('change', function () {
     periodSelectText.innerHTML = periodSelect.value;
 });
 
