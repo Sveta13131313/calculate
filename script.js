@@ -22,7 +22,8 @@ let start = document.getElementById('start'),
     incomeItems = document.querySelectorAll('.income-items'),
     periodSelectText = document.getElementsByClassName('title period-amount')[0],
     placeHolder = document.getElementsByTagName('input'),
-    inputText = document.querySelectorAll('input[type=text]'),
+    inputText = document.querySelectorAll('.data input[type=text]'),
+    inputTextResult = document.querySelectorAll('.result input[type=text]'),
     placeHolderSum = document.querySelectorAll('input[placeholder=Сумма]'),
     placeHolderNum = document.querySelectorAll('input[placeholder=Наименование]');
 
@@ -47,20 +48,44 @@ let appData = {
     placeHolderSum: {},
     start: function () {
         this.budget = +salaryAmount.value;
-
         this.getExpenses();
-        console.log(this);
         this.getExpensesMonth();
         this.getIncome();
         this.getAddExpenses();
         this.getAddIncome();
         this.getBudget();
         this.showResult();
+        inputText = document.querySelectorAll('.data input[type=text]');
+        inputTextResult = document.querySelectorAll('.result input[type=text]');
+        inputText.forEach(function (item) {
+            item.setAttribute('disabled', 'disabled');
+        });
+        inputTextResult.forEach(function (item) {
+            item.setAttribute('disabled', 'disabled');
+        });
+        btnPlusIncomeAdd.setAttribute('disabled', 'disabled');
+        btnPlusExpensesAdd.setAttribute('disabled', 'disabled');
+
     },
+    //Функция очищения и сброса всех полей в начальное положение
     reset: function () {
         inputText.forEach(function (item) {
             item.value = '';
+            item.removeAttribute('disabled');
+            periodSelect.value = '';
         });
+        inputTextResult.forEach(function (item) {
+            item.value = '';
+        });
+        for (let i = 1; i < incomeItems.length; i++) {
+            incomeItems[i].parentNode.removeChild(incomeItems[i]);
+            btnPlusIncomeAdd.style.display = 'block';
+        }
+        for (let i = 1; i < expensesItems.length; i++) {
+            expensesItems[i].parentNode.removeChild(expensesItems[i]);
+            btnPlusExpensesAdd.style.display = 'block';
+        }
+
         this.income = {};
         this.addIncome = [];
         this.expenses = {};
@@ -75,9 +100,11 @@ let appData = {
         this.incomeMonth = 0;
         this.placeHolderSum = {};
 
+        btnPlusIncomeAdd.removeAttribute('disabled');
+        btnPlusExpensesAdd.removeAttribute('disabled');
+
     },
     showResult: function () {
-        this.getPeriodSelect();
         budgetMonthValue.value = this.budgetMonth;
         budgetDayValue.value = Math.ceil(this.budgetDay);
         expensesMonthValue.value = this.expensesMonth;
@@ -86,6 +113,8 @@ let appData = {
         targetMonthValue.value = this.getTargetMonth();
         incomePeriodValue.value = this.calcPeriod();
     },
+
+    //Добавление дополнительных расходов
     addExpensesBlock: function () {
         let cloneExpensesItem = expensesItems[0].cloneNode(true);
         cloneExpensesItem.querySelector('.expenses-title').value = '';
@@ -106,6 +135,8 @@ let appData = {
             }
         });
     },
+
+    //Добавление дополнительных доходов
     addIncomeBlock: function () {
         let cloneIncomeItem = incomeItems[0].cloneNode(true);
         cloneIncomeItem.querySelector('.income-title').value = '';
@@ -131,9 +162,7 @@ let appData = {
             this.incomeMonth += +this.income[key];
         }
     },
-    getPeriodSelect: function () {
-        periodSelectText.textContent = periodSelect.value;
-    },
+
     getAddExpenses: function () {
         let addExpenses = additionalExpenses.value.split(',');
         addExpenses.forEach(function (item) {
@@ -185,36 +214,27 @@ let appData = {
 }
 
 
-
-
 let button = true;
 start.addEventListener('click', function (event) {
     event.preventDefault();
     if (salaryAmount.value != '' && button == true) {
         appData.start();
-        inputText.forEach(function (item) {
-            item.setAttribute('disabled', 'disabled');
-        });
         start.textContent = 'Сбросить';
         button = false;
-
-
     } else {
         appData.reset();
-        inputText.forEach(function (item) {
-            item.removeAttribute('disabled');
-        });
         start.textContent = 'Рассчитать';
         button = true;
 
     }
-
 }
 );
 
-btnPlusIncomeAdd.addEventListener('click', appData.addIncomeBlock);
-btnPlusExpensesAdd.addEventListener('click', appData.addExpensesBlock);
-periodSelect.addEventListener('mouseup', appData.getPeriodSelect);
+btnPlusExpensesAdd.addEventListener('click', appData.addExpensesBlock.bind(appData));
+btnPlusIncomeAdd.addEventListener('click', appData.addIncomeBlock.bind(appData));
+periodSelect.addEventListener('mouseup', function () {
+    periodSelectText.innerHTML = periodSelect.value;
+});
 
 placeHolderSum.forEach(function (item) {
     item.addEventListener('change', function () {
