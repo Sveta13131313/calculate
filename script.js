@@ -22,7 +22,9 @@ let start = document.getElementById('start'),
     incomeItems = document.querySelectorAll('.income-items'),
     periodSelectText = document.getElementsByClassName('title period-amount')[0],
     placeHolder = document.getElementsByTagName('input'),
-    inputText = document.querySelectorAll('input[type=text]');
+    inputText = document.querySelectorAll('input[type=text]'),
+    placeHolderSum = document.querySelectorAll('input[placeholder=Сумма]'),
+    placeHolderNum = document.querySelectorAll('input[placeholder=Наименование]');
 
 
 const isNumber = function (n) {
@@ -86,7 +88,8 @@ let appData = {
     },
     addExpensesBlock: function () {
         let cloneExpensesItem = expensesItems[0].cloneNode(true);
-        cloneExpensesItem.value = '';
+        cloneExpensesItem.querySelector('.expenses-title').value = '';
+        cloneExpensesItem.querySelector('.expenses-amount').value = '';
         expensesItems[0].parentNode.insertBefore(cloneExpensesItem, btnPlusExpensesAdd);
         expensesItems = document.querySelectorAll('.expenses-items');
         if (expensesItems.length === 3) {
@@ -105,7 +108,8 @@ let appData = {
     },
     addIncomeBlock: function () {
         let cloneIncomeItem = incomeItems[0].cloneNode(true);
-        cloneIncomeItem.value = ' ';
+        cloneIncomeItem.querySelector('.income-title').value = '';
+        cloneIncomeItem.querySelector('.income-amount').value = '';
         incomeItems[0].parentNode.insertBefore(cloneIncomeItem, btnPlusIncomeAdd);
         incomeItems = document.querySelectorAll('.income-items');
         if (incomeItems.length === 3) {
@@ -189,7 +193,7 @@ start.addEventListener('click', function (event) {
     if (salaryAmount.value != '' && button == true) {
         appData.start();
         inputText.forEach(function (item) {
-            item.setAttribute('disabled','disabled');
+            item.setAttribute('disabled', 'disabled');
         });
         start.textContent = 'Сбросить';
         button = false;
@@ -198,11 +202,11 @@ start.addEventListener('click', function (event) {
     } else {
         appData.reset();
         inputText.forEach(function (item) {
-            item.removeAttribute ('disabled');
+            item.removeAttribute('disabled');
         });
         start.textContent = 'Рассчитать';
         button = true;
-        
+
     }
 
 }
@@ -212,40 +216,15 @@ btnPlusIncomeAdd.addEventListener('click', appData.addIncomeBlock);
 btnPlusExpensesAdd.addEventListener('click', appData.addExpensesBlock);
 periodSelect.addEventListener('mouseup', appData.getPeriodSelect);
 
-placeHolder[0].addEventListener('change', function () {
-    placeHolder[0].value = placeHolder[0].value.replace(/[^0-9]/g, '');
-});
-placeHolder[2].addEventListener('change', function () {
-    placeHolder[2].value = placeHolder[2].value.replace(/[^0-9]/g, '');
-});
-placeHolder[6].addEventListener('change', function () {
-    placeHolder[6].value = placeHolder[6].value.replace(/[^0-9]/g, '');
-});
-placeHolder[9].addEventListener('change', function () {
-    placeHolder[9].value = placeHolder[9].value.replace(/[^0-9]/g, '');
-});
-placeHolder[11].addEventListener('change', function () {
-    placeHolder[11].value = placeHolder[11].value.replace(/[^0-9]/g, '');
-});
-placeHolder[1].addEventListener('change', function () {
-    placeHolder[1].value = placeHolder[1].value.replace(/[^а-яё\s]/gi, '');
-});
-
-placeHolder[3].addEventListener('change', function () {
-    placeHolder[3].value = placeHolder[3].value.replace(/[^а-яё\s]/gi, '');
-});
-
-placeHolder[4].addEventListener('change', function () {
-    placeHolder[4].value = placeHolder[4].value.replace(/[^а-яё\s]/gi, '');
-});
-
-placeHolder[5].addEventListener('change', function () {
-    placeHolder[5].value = placeHolder[5].value.replace(/[^а-яё\s]/gi, '');
-});
-
-placeHolder[7].addEventListener('change', function () {
-    placeHolder[7].value = placeHolder[7].value.replace(/[^а-яё\,\s]/gi, '');
-});
-
-
-
+placeHolderSum.forEach(function (item) {
+    item.addEventListener('change', function () {
+        item.value = item.value.replace(/[^0-9]/g, '');
+        placeHolderSum = document.querySelectorAll('input[placeholder=Сумма]');
+    })
+})
+placeHolderNum.forEach(function (item) {
+    item.addEventListener('change', function () {
+        item.value = item.value.replace(/[^а-яё\s]/gi, '');
+        placeHolderNum = document.querySelectorAll('input[placeholder=Наименование]');
+    })
+})
