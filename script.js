@@ -80,7 +80,7 @@ let appData = {
         inputText.forEach(function (item) {
             item.value = '';
             item.removeAttribute('disabled');
-            periodSelect.value = '';
+            periodSelect.value = 1;
             periodSelectText.innerHTML = periodSelect.value;
         });
         inputTextResult.forEach(function (item) {
