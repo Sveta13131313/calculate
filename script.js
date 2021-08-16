@@ -30,7 +30,7 @@ let start = document.getElementById('start'),
 
 const AppData = function () {
     this.income = {};
-    this.addIncme = [];
+    this.addIncome = [];
     this.expenses = {};
     this.addExpenses = [];
     this.deposit = false;
@@ -50,6 +50,7 @@ AppData.prototype.check=function(){
 };
 
 AppData.prototype.start= function () {
+    console.log(this)
     if(salaryAmount.value==''){
         start.setAttribute('disabled', 'disabled');
         return
@@ -83,7 +84,7 @@ AppData.prototype.reset=function () {
     inputText.forEach(function (item) {
         item.value = '';
         item.removeAttribute('disabled');
-        periodSelect.value = '';
+        periodSelect.value =1;
         periodSelectText.innerHTML = periodSelect.value;
     });
     inputTextResult.forEach(function (item) {
@@ -120,17 +121,17 @@ AppData.prototype.reset=function () {
 
 };
 AppData.prototype.showResult= function () {
-   
+   const _this=this;
     budgetMonthValue.value = this.budgetMonth;
     budgetDayValue.value = Math.ceil(this.budgetDay);
     expensesMonthValue.value = this.expensesMonth;
-    additionalExpensesValue.value = this.addExpenses.join(', ');
+    additionalExpensesValue.value = _this.addExpenses.join(', ');
     additionalIncomeValue.value = this.addIncome.join(', ');
     targetMonthValue.value = this.getTargetMonth();
     incomePeriodValue.value = this.calcPeriod();
     periodSelect.addEventListener('change',function(){
-        periodSelectText.value=this.calcPeriod();
-    },this)
+        periodSelectText.value=this.calcPeriod.bind(this);
+    });
 };
 
 //Добавление дополнительных расходов
@@ -190,17 +191,18 @@ AppData.prototype.getAddExpenses= function () {
         if (item !== '') {
             this.addExpenses.push(item);
         }
-    },this)
+    },this);
 };
 
 AppData.prototype.getAddIncome= function () {
-    
+    const _this=this;
     additionalIncomeItem.forEach(function (item) {
         let itemValue = item.value.trim();
         if (itemValue !== '') {
-            this.addIncome.push(itemValue);
+            console.log(_this)
+            _this.addIncome.push(itemValue);
         }
-    },this);
+    });
 };
 
 AppData.prototype.getExpensesMonth= function () {
@@ -234,12 +236,12 @@ AppData.prototype.calcPeriod= function () {
 };
 
 AppData.prototype.eventListener= function(){
-    const _this=this;
-    start.addEventListener('click', _this.start);
-    btnPlusExpensesAdd.addEventListener('click', _this.addExpensesBlock);
-    btnPlusIncomeAdd.addEventListener('click',  _this.addIncomeBlock);
-    salaryAmount.addEventListener('keyup',  _this.check);
-    cancel.addEventListener('click',  _this.reset);
+    start.addEventListener('click', this.start.bind(this));
+
+    btnPlusExpensesAdd.addEventListener('click', this.addExpensesBlock.bind(this));
+    btnPlusIncomeAdd.addEventListener('click',  this.addIncomeBlock.bind(this));
+    salaryAmount.addEventListener('keyup',  this.check.bind(this));
+    cancel.addEventListener('click',  this.reset.bind(this));
     
     periodSelect.addEventListener('change', function () {
         periodSelectText.innerHTML = periodSelect.value;
@@ -265,6 +267,7 @@ const appData = new AppData();
 
 console.log(appData);
 appData.eventListener();
+
 
 
 
