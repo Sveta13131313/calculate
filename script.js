@@ -49,7 +49,7 @@ let appData = {
     },
     start: function () {
         if(salaryAmount.value==''){
-            start.setAttribute('disabled');
+            start.setAttribute('disabled', 'disabled');
             return
         }
         inputText = document.querySelectorAll('.data input[type=text]');
@@ -117,6 +117,9 @@ let appData = {
 
     },
     showResult: function () {
+        periodSelect.addEventListener('input', function(){
+            return incomePeriodValue.value = appData.calcPeriod();
+        }),
         budgetMonthValue.value = this.budgetMonth;
         budgetDayValue.value = Math.ceil(this.budgetDay);
         expensesMonthValue.value = this.expensesMonth;
@@ -233,7 +236,7 @@ btnPlusIncomeAdd.addEventListener('click', appData.addIncomeBlock.bind(appData))
 salaryAmount.addEventListener('keyup',appData.check);
 cancel.addEventListener('click',appData.reset.bind(appData));
 
-periodSelect.addEventListener('change', function () {
+periodSelect.addEventListener('input', function () {
     periodSelectText.innerHTML = periodSelect.value;
 });
 
