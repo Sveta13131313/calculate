@@ -118,7 +118,7 @@ let appData = {
     },
     showResult: function () {
         periodSelect.addEventListener('input', function(){
-            return incomePeriodValue.value = appData.calcPeriod();
+            incomePeriodValue.value = appData.calcPeriod();
         }),
         budgetMonthValue.value = this.budgetMonth;
         budgetDayValue.value = Math.ceil(this.budgetDay);
