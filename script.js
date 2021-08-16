@@ -263,8 +263,6 @@ AppData.prototype.eventListener = function () {
 
 
 const appData = new AppData();
-
-console.log(appData);
 appData.eventListener();
 
 
