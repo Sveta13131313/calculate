@@ -127,7 +127,7 @@ AppData.prototype.showResult = function () {
     additionalIncomeValue.value = this.addIncome.join(', ');
     targetMonthValue.value = this.getTargetMonth();
     incomePeriodValue.value = this.calcPeriod();
-    periodSelect.addEventListener('change', function () {
+    periodSelect.addEventListener('input', function () {
         incomePeriodValue.value = _this.calcPeriod();
     });
 
