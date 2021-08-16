@@ -56,6 +56,9 @@ let appData = {
         appData.showResult();
     },
     showResult: function () {
+        periodSelect.addEventListener('input', function(){
+            return incomePeriodValue.value = appData.calcPeriod();
+        }),
         appData.getPeriodSelect();
         budgetMonthValue.value = appData.budgetMonth;
         budgetDayValue.value = Math.ceil(appData.budgetDay);
@@ -177,7 +180,7 @@ start.addEventListener('click', function (event) {
 
 btnPlusIncomeAdd.addEventListener('click', appData.addIncomeBlock);
 btnPlusExpensesAdd.addEventListener('click', appData.addExpensesBlock);
-periodSelect.addEventListener('mouseup', appData.getPeriodSelect);
+periodSelect.addEventListener('input', appData.getPeriodSelect);
 placeHolderSum.forEach(function (item) {
     item.addEventListener('change', function () {
         item.value = item.value.replace(/[^0-9]/g, '');
